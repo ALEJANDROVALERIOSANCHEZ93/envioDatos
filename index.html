@@ -1,0 +1,72 @@
+<!DOCTYPE html-->
+<html>
+<head>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+<script type="text/javascript" charset="utf-8"
+src="phonegap.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<title>Aplicacion movil</title>
+<script type="text/javascript">
+$(document).ready(function inicio(){
+/*alert("Listo");*/
+var btnEnvio=$("#enviar");
+btnEnvio.click(function enviarDatos(){
+    var nom=$("#nombre").val();
+    var app=$("#apellidop").val();
+    var apm=$("#apellidom").val();
+    var tel=$("#telefono").val();
+    var email=$("#email").val();
+    var direc=$("#direc").val();
+    var obs=$("#obs").val();
+    /*alert("Listo");*/
+    $.ajax({
+        type:"POST",
+        url:"envio.php",
+        data:"nombre="+nom+"&apellidop="+app+"&apellidom="+apm+"&telefono="+tel+"&email="+email+"&direccion="+direc+"&observaciones="+obs,
+        success: recepcion
+        });
+});
+function recepcion(datos){
+    /*alert("Listo:"+datos);*/
+    var resp=$("#respuesta");
+    resp.html(datos);
+}
+});
+</script>
+</head>
+<body>
+<div data-role="page" id="Principal" data-theme="a">
+<div data-role="header">
+<p style="text-align:center">Envio de datos desde un formulario</p></div>
+<div data-role="content">
+<form method="POST" action="envio.php">
+<div class="ui-field-contain">
+<label for="nombre">Nombre:</label>
+<input type="text" name="nombre" id="nombre">
+<label for="apellidop">Apellido Paterno: </label>
+<input type="text" name="apellidop" id="apellidop" /><br>
+<label for="apellidom">Apellido Materno: </label>
+<input type="text" name="apellidom" id="apellidom" /><br>
+<label for="telefono">Telefono: </label>
+<input type="text" name="telefono" id="telefono" /><br>
+<label for="email">Correo:</label>
+<input type="text" name="email" id="email" placeholder="cuenta@servicio.extencion">
+<label for="direccion">Dirección: </label>
+<input type="text" name="direccion" id="direc" /><br>
+<label for="observaciones">Obsevaciones: </label>
+<input type="text" name="observaciones" id="obs" /><br>
+</div>		
+<input type="button" name="enviar" id="enviar" value="enviar">
+</form>
+<div id="respuesta">
+    
+</div>
+</div>
+<div data-role="footer">
+<p style="text-align:center; font-size:10px;">Derechos Reservados</p>
+
+</div>
+</div>
+</body>
+</html>
